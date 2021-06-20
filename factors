@@ -1,27 +1,7 @@
-#!/usr/bin/python3
-import sys
-"""
-a function that writes a string to a text file (UTF8)
-and returns the number of characters written
-"""
-def main():
-    list_num = []
-    filepath = sys.argv[1]
-    with open(filepath, "r", encoding="UTF_8") as fp:
-        for line in fp:
-            num = int(line)
-            list_num = factoriel(num)
-            print("{:d}={:d}*{:d}".format(num, list_num[0], list_num[1]))
-            list_num.clear()
-
-def factoriel(n):
-    i = 2
-    lst = []
-    while(True):
-        if ((n % i) == 0):
-            lst.append(n // i)
-            lst.append(i)
-            return lst
-        i += 1
-if __name__ == '__main__':
-    main()
+#!/usr/bin/env bash
+FILE=$1
+while read line
+do
+    factors=($(factor $line))
+    echo "$line=$(($line/${factors[1]}))*${factors[1]}"
+done < $FILE
